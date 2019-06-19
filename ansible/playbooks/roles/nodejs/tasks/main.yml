@@ -8,7 +8,7 @@
 
 - name: install node
   become: true
-  command: /usr/bin/nave usemain 4.8
+  command: /usr/bin/nave usemain 4.7
   # TODO detect actual changes
   changed_when: false
 

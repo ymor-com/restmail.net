@@ -4,34 +4,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bluebird": "3.5.3",
-    "convict": "4.4.1",
-    "express": "4.16.4",
-    "mailparser": "0.6.2",
-    "morgan": "1.9.1",
-    "redis": "2.8.0",
+    "express": "4.14.0",
+    "hiredis": "0.5.0",
+    "mailparser": "0.6.1",
+    "morgan": "1.7.0",
+    "redis": "2.6.5",
     "smtp-protocol": "2.4.7"
   },
-  "optionalDependencies": {
-    "hiredis": "0.5.0"
-  },
   "devDependencies": {
-    "commander": "2.19.0",
-    "eslint": "5.13.0",
-    "eslint-plugin-fxa": "git://github.com/mozilla/eslint-plugin-fxa.git#41504c9dd30e8b52900c15b524946aa0428aef95",
-    "eslint-plugin-sorting": "git://github.com/shane-tomlinson/eslint-plugin-sorting.git#bcacb99d",
-    "mocha": "5.2.0",
-    "request": "2.88.0",
-    "should": "13.2.3"
+    "commander": "2.9.0",
+    "bluebird": "2.11.0",
+    "mocha": "3.2.0",
+    "request": "2.79.0",
+    "should": "11.1.2"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 4"
   },
   "scripts": {
-    "lint": "eslint bin/*.js lib/*.js tests/*.js loadtest/*.js",
-    "loadtest": "node loadtest/index.js -d 3000",
-    "start": "node bin/webserver.js",
-    "test": "npm run lint && npm run tests && npm run loadtest",
-    "tests": "NODE_ENV=test mocha --exit --globals msg -R spec tests/*.js"
+    "start": "node webserver.js",
+    "test": "mocha --globals msg -R spec tests.js"
   }
 }

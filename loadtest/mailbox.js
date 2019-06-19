@@ -4,24 +4,20 @@ const P = require('bluebird');
 const request = require('request');
 const url = require('url');
 
-const config = require('../lib/config');
 const log = require('./log');
 
 function debug() {
-  if (! config.loadtest.debug) {
-    return;
-  }
-
+  return;
   const args = Array.prototype.slice.call(arguments);
   log.apply(null, args);
 }
 
 module.exports = function (port, options) {
   const interval = options.interval || 500;
-  const maxTries = options.maxTries = options.maxTries || 10;
+  let maxTries = options.maxTries = options.maxTries || 10;
 
   function checkEmail(json, to) {
-    if (! Array.isArray(json)) {
+    if (!Array.isArray(json)) {
       return new Error('Mailbox is not an Array');
     }
 
@@ -44,15 +40,15 @@ module.exports = function (port, options) {
 
   function loop(email, tries, cb) {
     const uri = url.format({
+      protocol: 'http',
       hostname: '127.0.0.1',
-      pathname: '/mail/' + email,
       port: port,
-      protocol: 'http'
+      pathname: '/mail/' + email
     });
 
     debug('checking mail', uri);
 
-    const requestOptions = { json: true, uri: uri };
+    const requestOptions = { uri: uri, json: true };
     request.get(requestOptions, function (err, res, json) {
       if (err) {
         return cb(err);
@@ -61,14 +57,14 @@ module.exports = function (port, options) {
       if (tries < options.maxTries - 1) {
         log('mail status', res && res.statusCode, 'tries', tries);
       }
-
+      
       const emailState = checkEmail(json, email);
 
       if (emailState instanceof Error) {
         return cb(emailState);
       }
 
-      if (! emailState) {
+      if(!emailState) {
         if (tries === 0) {
           return cb(new Error('could not get mail for ' + uri));
         }

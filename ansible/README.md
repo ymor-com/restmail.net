@@ -1,4 +1,4 @@
-The command `make stack=mystack key=yourkeyname` will create an EC2 instance [1] with the following attributes:
+The command `make stack=mystack key=yourkeyname` will create and EC2 instance [1] with the following attributes:
 
 * builds and runs restmail.net (https://github.com/mozilla/restmail.net) webserver and emailserver
 * an nginx reverse proxy serving both port 80 and port 443 traffic with a self-signed SSL certificate
