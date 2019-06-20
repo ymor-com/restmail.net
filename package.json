@@ -33,5 +33,9 @@
     "start": "node bin/webserver.js",
     "test": "npm run lint && npm run tests && npm run loadtest",
     "tests": "NODE_ENV=test mocha --exit --globals msg -R spec tests/*.js"
-  }
+  },
+  "pkg": {
+    "scripts": "util/**/*.js"
+  },
+  "bin": "bin"
 }
